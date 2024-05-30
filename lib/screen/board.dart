@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:whiteboard/controller/drawing_controller.dart';
 import 'package:whiteboard/widget/drawing_area.dart';
 import 'package:whiteboard/widget/drawing_painter.dart';
@@ -12,7 +13,7 @@ class Whiteboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      ()=>Scaffold(
+      () => Scaffold(
         appBar: AppBar(
           title: const Center(
             child: Text(
@@ -25,33 +26,49 @@ class Whiteboard extends StatelessWidget {
           ),
           actions: [
             Obx(
-              () => IconButton(
-                icon: Icon(
-                  controller.isDarkMode.value
-                      ? Icons.light_mode
-                      : Icons.dark_mode,
-                ),
-                onPressed: () {
-                  controller.toggleTheme();
-                },
+              () =>IconButton(
+  icon: Icon(
+    controller.isDarkMode.value
+        ? Icons.circle 
+        : Icons.circle, 
+    color: controller.isDarkMode.value ? Colors.yellow : Colors.red, 
+  ),
+  onPressed: () {
+    controller.toggleTheme();
+  },
+),
+
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.circle,
+                color: Colors.blue,
               ),
+              onPressed: () {
+                controller.clearPoints();
+                Get.snackbar(
+                  'Cleared',
+                  'Objects cleared successfully',
+                );
+              },
             ),
             PopupMenuButton<Color>(
-              icon: const Icon(Icons.brush, color: Colors.black),
+              icon: const Icon(Icons.circle, color: Colors.green),
               itemBuilder: (BuildContext context) => [
                 const PopupMenuItem<Color>(
                   value: Colors.black,
-                  child:
-                      Text("Black brush", style: TextStyle(color: Colors.black)),
+                  child: Text("Black brush",
+                      style: TextStyle(color: Colors.black)),
                 ),
                 const PopupMenuItem<Color>(
                   value: Colors.green,
-                  child:
-                      Text("Green brush", style: TextStyle(color: Colors.green)),
+                  child: Text("Green brush",
+                      style: TextStyle(color: Colors.green)),
                 ),
                 const PopupMenuItem<Color>(
                   value: Colors.blue,
-                  child: Text("Blue brush", style: TextStyle(color: Colors.blue)),
+                  child:
+                      Text("Blue brush", style: TextStyle(color: Colors.blue)),
                 ),
                 const PopupMenuItem<Color>(
                   value: Colors.red,
@@ -109,12 +126,12 @@ class Whiteboard extends StatelessWidget {
             ),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.clear),
-          onPressed: () {
-            controller.clearPoints();
-          },
-        ),
+        // floatingActionButton: FloatingActionButton(
+        //   child: const Icon(Icons.clear),
+        //   onPressed: () {
+        //     controller.clearPoints();
+        //   },
+        // ),
       ),
     );
   }
