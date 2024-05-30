@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:whiteboard/controller/drawing_controller.dart';
 import 'package:whiteboard/widget/drawing_area.dart';
 import 'package:whiteboard/widget/drawing_painter.dart';
@@ -15,29 +14,28 @@ class Whiteboard extends StatelessWidget {
     return Obx(
       () => Scaffold(
         appBar: AppBar(
-          title: const Center(
-            child: Text(
-              "Whiteboard",
+          backgroundColor: Colors.white,
+          title: 
+            const Text(
+              "Board",
               style: TextStyle(
                 color: Colors.green,
                 fontWeight: FontWeight.bold,
               ),
             ),
-          ),
+        
           actions: [
             Obx(
-              () =>IconButton(
-  icon: Icon(
-    controller.isDarkMode.value
-        ? Icons.circle 
-        : Icons.circle, 
-    color: controller.isDarkMode.value ? Colors.yellow : Colors.red, 
-  ),
-  onPressed: () {
-    controller.toggleTheme();
-  },
-),
-
+              () => IconButton(
+                icon: Icon(
+                  controller.isDarkMode.value ? Icons.circle : Icons.circle,
+                  color:
+                      controller.isDarkMode.value ? Colors.yellow : Colors.red,
+                ),
+                onPressed: () {
+                  controller.toggleTheme();
+                },
+              ),
             ),
             IconButton(
               icon: const Icon(
@@ -46,10 +44,10 @@ class Whiteboard extends StatelessWidget {
               ),
               onPressed: () {
                 controller.clearPoints();
-                Get.snackbar(
-                  'Cleared',
-                  'Objects cleared successfully',
-                );
+                // Get.snackbar(
+                //   'Cleared',
+                //   'Objects cleared successfully',
+                // );
               },
             ),
             PopupMenuButton<Color>(
